@@ -1,13 +1,15 @@
 import React from 'react'
+import User from '../user/User'
 
-const Users = () => {
+const Users = ({ users }) => {
 
-    // fake database - users collection
-    // const users = [];
+    const usersList = users.map(user => {
+        return <User key={user.id} userData={user} />
+    })
 
     return (
         <div>
-
+            {usersList}
         </div>
     )
 }

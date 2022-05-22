@@ -4,17 +4,20 @@ import Users from "./components/users general/users/Users";
 
 function App() {
 
-  const [newUser, setNewUser] = useState({})
+  // fake database - users collection
+  const [users, setUsers] = useState([]);
 
   const handleNewUser = (newUserVal) => {
 
-    setNewUser(newUserVal)
+    setUsers((prevVal) => {
+      return [...prevVal, newUserVal]
+    })
   }
 
   return (
-    <div >
+    <div style={{ textAlign: 'center' }} >
       <UserInputs onAddUser={handleNewUser} />
-      <Users />
+      <Users users={users} />
     </div>
   );
 }
