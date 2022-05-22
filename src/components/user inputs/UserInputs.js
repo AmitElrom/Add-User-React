@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { nanoid } from 'nanoid';
 import { titleCase } from '../../utils/manipulateData';
 
-const UserInputs = ({ onAddUser }) => {
+const UserInputs = ({ onAddUser, onError }) => {
 
     const [newUser, setNewUser] = useState({ id: '', username: '', age: '' });
+    const { username, age } = newUser;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,8 +24,19 @@ const UserInputs = ({ onAddUser }) => {
     const handleSubmit = (e) => {
 
         e.preventDefault()
-
-        onAddUser(newUser)
+        if (username !== '' && age !== '') {
+            onAddUser(newUser)
+        }
+        else if (username !== '' && age === '') {
+            onError('no-age')
+        }
+        else if (username === '' && age !== '') {
+            onError('no-username')
+        }
+        else // username === '' && age === ''
+        {
+            onError('no-username-no-age')
+        }
     }
 
     return (

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const User = ({ userData: { id, username, age } }) => {
+const User = ({ userData: { username, age }, handleDelete }) => {
 
     const userText = `${username} (${age} years old)`
 
     return (
-        <div>
+        <div onClick={handleDelete} >
             {userText}
         </div>
     )
