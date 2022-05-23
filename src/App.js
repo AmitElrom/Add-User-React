@@ -33,6 +33,12 @@ function App() {
     })
   }
 
+  const handleModal = (isError) => {
+    setError((prevVal) => {
+      return { ...prevVal, isError }
+    })
+  }
+
   return (
     <div style={{ textAlign: 'center' }} onClick={console.log('hello')} >
       <UserInputs onAddUser={handleNewUser} onError={handleError} />
@@ -40,11 +46,8 @@ function App() {
       {error.isError &&
         <ErrorModal
           error={error.errorType}
-          onAcceptError={() => {
-            setError((prevVal) => {
-              return { ...prevVal, isError: false }
-            })
-          }} />}
+          handleModal={handleModal}
+        />}
     </div>
   );
 }

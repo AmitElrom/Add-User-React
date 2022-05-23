@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ErrorModal = ({ error, onAcceptError }) => {
+const ErrorModal = ({ error, handleModal }) => {
 
     let msg;
     if (error === 'no-age') {
@@ -13,15 +13,17 @@ const ErrorModal = ({ error, onAcceptError }) => {
         msg = ('Please enter a valid name and age (non-empty-values)')
     }
 
-    const handleAcceptError = () => onAcceptError()
+    // const handleAcceptError = () => onAcceptError()
 
     return (
-        <div>
-            <div>Invalid Input</div>
-            <div>
-                <div>{msg}</div>
+        <div onClick={() => handleModal(false)} style={{ border: '.2em solid black', height: '100vh' }} >
+            <div onClick={() => handleModal(true)} style={{ border: '.2em solid black' }} >
+                <div >Invalid Input</div>
                 <div>
-                    <input type='button' value='Okay' onClick={handleAcceptError} />
+                    <div>{msg}</div>
+                    <div>
+                        <input type='button' value='Okay' onClick={() => handleModal(false)} />
+                    </div>
                 </div>
             </div>
         </div>
