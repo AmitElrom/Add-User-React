@@ -1,6 +1,10 @@
 import React from 'react'
 import User from '../user/User'
 
+import Card from '../../UI/card/Card';
+
+import classes from './Users.module.css';
+
 const Users = ({ users, onDelete }) => {
 
     const handleDelete = (userId) => {
@@ -12,9 +16,11 @@ const Users = ({ users, onDelete }) => {
     })
 
     return (
-        <div>
-            {usersList}
-        </div>
+        <Card className={classes.users} >
+            <ul>
+                {usersList}
+            </ul>
+        </Card>
     )
 }
 

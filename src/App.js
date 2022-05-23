@@ -33,20 +33,17 @@ function App() {
     })
   }
 
-  const handleModal = (isError) => {
-    setError((prevVal) => {
-      return { ...prevVal, isError }
-    })
-  }
-
   return (
-    <div style={{ textAlign: 'center' }} onClick={console.log('hello')} >
+    <div >
       <UserInputs onAddUser={handleNewUser} onError={handleError} />
-      <Users users={users} onDelete={handleDelete} />
+      {users.length > 0 &&
+        <Users
+          users={users}
+          onDelete={handleDelete} />}
+
       {error.isError &&
         <ErrorModal
           error={error.errorType}
-          handleModal={handleModal}
         />}
     </div>
   );

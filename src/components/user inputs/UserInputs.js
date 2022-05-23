@@ -2,21 +2,27 @@ import React, { useState } from 'react'
 import { nanoid } from 'nanoid';
 import { titleCase } from '../../utils/manipulateData';
 
+import Card from '../UI/card/Card';
+import Button from '../UI/button/Button';
+
+import classes from './UserInputs.module.css';
+
 const UserInputs = ({ onAddUser, onError }) => {
 
     const [newUser, setNewUser] = useState({ id: '', username: '', age: '' });
     const { username, age } = newUser;
 
-    const handleChange = (e) => {
+    const changeUserHandler = (e) => {
         const { name, value } = e.target;
+
         if (name === 'username') {
             let newValue = titleCase(value)
             setNewUser((prevVal) => {
-                return { ...prevVal, username: newValue, id: nanoid() }
+                return { ...prevVal, username: newValue }
             })
         } else {
             setNewUser((prevVal) => {
-                return { ...prevVal, [name]: value, id: nanoid() }
+                return { ...prevVal, [name]: value }
             })
         }
     }
@@ -24,35 +30,27 @@ const UserInputs = ({ onAddUser, onError }) => {
     const handleSubmit = (e) => {
 
         e.preventDefault()
-        if (username !== '' && age !== '') {
-            onAddUser(newUser)
+
+        if (username.trim().length === 0 || age.trim().length === 0) {
+            return;
         }
-        else if (username !== '' && age === '') {
-            onError('no-age')
+        else if (+age < 1) {
+            return;
         }
-        else if (username === '' && age !== '') {
-            onError('no-username')
-        }
-        else // username === '' && age === ''
-        {
-            onError('no-username-no-age')
-        }
+        setNewUser({ ...newUser, username: '', age: '' })
+        onAddUser({ ...newUser, id: nanoid() })
     }
 
     return (
-        <div >
+        <Card className={classes.input} >
             <form onSubmit={handleSubmit} >
-                <div >
-                    <label htmlFor='username' >Username</label> <br />
-                    <input name='username' id='username' type='text' onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor='age' >Age (Years)</label> <br />
-                    <input name='age' id='age' type='number' onChange={handleChange} />
-                </div>
-                <input type='submit' value='Add User' />
+                <label htmlFor='username' >Username</label> <br />
+                <input value={username} name='username' id='username' type='text' onChange={changeUserHandler} />
+                <label htmlFor='age' >Age (Years)</label> <br />
+                <input value={age} name='age' id='age' type='number' onChange={changeUserHandler} />
+                <Button value='Add User' type='submit' />
             </form>
-        </div>
+        </Card>
     )
 }
 
