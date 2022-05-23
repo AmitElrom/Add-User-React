@@ -21,6 +21,12 @@ function App() {
     })
   }
 
+  const handleDelete = (userId) => {
+    setUsers((prevVal) => {
+      return prevVal.filter(user => user.id !== userId)
+    })
+  }
+
   const handleError = (errorType) => {
     setError((prevVal) => {
       return { ...prevVal, isError: true, errorType }
@@ -28,9 +34,9 @@ function App() {
   }
 
   return (
-    <div style={{ textAlign: 'center' }} >
+    <div style={{ textAlign: 'center' }} onClick={console.log('hello')} >
       <UserInputs onAddUser={handleNewUser} onError={handleError} />
-      <Users users={users} />
+      <Users users={users} onDelete={handleDelete} />
       {error.isError &&
         <ErrorModal
           error={error.errorType}
