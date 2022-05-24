@@ -13,6 +13,9 @@ const UserInputs = ({ onAddUser, onError }) => {
     const [newUser, setNewUser] = useState({ id: '', username: '', age: '' });
     const { username, age } = newUser;
 
+    const [error, setError] = useState({ isError: false, title: '', message: '' });
+    const { isError, title, message } = error;
+
     const changeUserHandler = (e) => {
         const { name, value } = e.target;
 
@@ -33,18 +36,36 @@ const UserInputs = ({ onAddUser, onError }) => {
         e.preventDefault()
 
         if (username.trim().length === 0 || age.trim().length === 0) {
+            setError((prevVal) => {
+                return {
+                    ...prevVal, isError: true, title: 'Invalid Input',
+                    message: 'Please enter valid name and age (non-empty values).'
+                }
+            })
             return;
         }
-        else if (+age < 1) {
+        else if (!(+age > 0)) {
+            setError((prevVal) => {
+                return {
+                    ...prevVal, isError: true, title: 'Invalid Age',
+                    message: 'Please enter a valid age (age must be bigger that 0).'
+                }
+            })
             return;
         }
         setNewUser({ ...newUser, username: '', age: '' })
         onAddUser({ ...newUser, id: nanoid() })
     }
 
+    const okayErrorHandler = () => {
+        setError((prevVal) => {
+            return { ...prevVal, isError: false }
+        })
+    }
+
     return (
         <div>
-            <ErrorModal title='some title' message='some msg' />
+            {isError && <ErrorModal title={title} message={message} onOkay={okayErrorHandler} />}
             <Card className={classes.input} >
                 <form onSubmit={handleSubmit} >
                     <label htmlFor='username' >Username</label> <br />

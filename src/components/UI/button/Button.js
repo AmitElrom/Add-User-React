@@ -21,9 +21,9 @@ outline: none;
 }
 `
 
-const Button = ({ value, type }) => {
+const Button = ({ value, type, onOkay }) => {
     return (
-        <StyledButton type={type || 'button'} >
+        <StyledButton onClick={onOkay} type={type || 'button'} >
             {value}
         </StyledButton>
     )
