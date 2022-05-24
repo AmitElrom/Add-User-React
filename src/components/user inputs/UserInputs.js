@@ -4,6 +4,7 @@ import { titleCase } from '../../utils/manipulateData';
 
 import Card from '../UI/card/Card';
 import Button from '../UI/button/Button';
+import ErrorModal from '../UI/error modal/ErrorModal';
 
 import classes from './UserInputs.module.css';
 
@@ -42,15 +43,18 @@ const UserInputs = ({ onAddUser, onError }) => {
     }
 
     return (
-        <Card className={classes.input} >
-            <form onSubmit={handleSubmit} >
-                <label htmlFor='username' >Username</label> <br />
-                <input value={username} name='username' id='username' type='text' onChange={changeUserHandler} />
-                <label htmlFor='age' >Age (Years)</label> <br />
-                <input value={age} name='age' id='age' type='number' onChange={changeUserHandler} />
-                <Button value='Add User' type='submit' />
-            </form>
-        </Card>
+        <div>
+            <ErrorModal title='some title' message='some msg' />
+            <Card className={classes.input} >
+                <form onSubmit={handleSubmit} >
+                    <label htmlFor='username' >Username</label> <br />
+                    <input value={username} name='username' id='username' type='text' onChange={changeUserHandler} />
+                    <label htmlFor='age' >Age (Years)</label> <br />
+                    <input value={age} name='age' id='age' type='number' onChange={changeUserHandler} />
+                    <Button value='Add User' type='submit' />
+                </form>
+            </Card>
+        </div>
     )
 }
 

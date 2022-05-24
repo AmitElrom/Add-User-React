@@ -1,31 +1,24 @@
 import React from 'react'
 
-const ErrorModal = ({ error, handleModal }) => {
+import Card from '../card/Card';
+import Button from '../button/Button';
 
-    let msg;
-    if (error === 'no-age') {
-        msg = 'Please enter a valid age (non-empty-values)'
-    }
-    else if (error === 'no-username') {
-        msg = ('Please enter a valid name (non-empty-values)')
-    }
-    else {
-        msg = ('Please enter a valid name and age (non-empty-values)')
-    }
+import classes from './ErrorModal.module.css';
+const { header, content, actions } = classes;
 
-    // const handleAcceptError = () => onAcceptError()
+const ErrorModal = ({ title, message }) => {
 
     return (
-        <div onClick={() => handleModal(false)} style={{ border: '.2em solid black', height: '100vh' }} >
-            <div onClick={() => handleModal(true)} style={{ border: '.2em solid black' }} >
-                <div >Invalid Input</div>
-                <div>
-                    <div>{msg}</div>
-                    <div>
-                        <input type='button' value='Okay' onClick={() => handleModal(false)} />
-                    </div>
+        <div className={classes.backdrop} >
+            <Card className={classes.modal} >
+                <header className={header} >{title}</header>
+                <div className={content} >
+                    <h2>{message}</h2>
                 </div>
-            </div>
+                <footer className={actions} >
+                    <Button value='Okay' />
+                </footer>
+            </Card>
         </div>
     )
 }

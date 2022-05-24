@@ -1,13 +1,15 @@
 import React from 'react'
 
+import classes from './User.module.css';
+
 const User = ({ userData: { id, username, age }, handleDelete }) => {
 
-    const userText = `${username} (${age} years old)`
+    const userText = `${username} (${age} years old) - ${id}`
 
     return (
-        <div onClick={() => handleDelete(id)} >
+        <li className={classes.li} onClick={() => handleDelete(id)} >
             {userText}
-        </div>
+        </li>
     )
 }
 
