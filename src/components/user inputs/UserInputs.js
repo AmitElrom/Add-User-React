@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { nanoid } from 'nanoid';
 import { titleCase } from '../../utils/manipulateData';
 
 import Card from '../UI/card/Card';
 import Button from '../UI/button/Button';
 import ErrorModal from '../UI/error modal/ErrorModal';
+
+import Wrapper from '../Helpers/Wrapper';
 
 import classes from './UserInputs.module.css';
 
@@ -64,7 +66,8 @@ const UserInputs = ({ onAddUser, onError }) => {
     }
 
     return (
-        <div>
+        // <>data</> / <Fragment>data</Fragment> / <Wrapper>data</Wrapper>
+        <>
             {isError && <ErrorModal title={title} message={message} onOkay={okayErrorHandler} />}
             <Card className={classes.input} >
                 <form onSubmit={handleSubmit} >
@@ -75,7 +78,7 @@ const UserInputs = ({ onAddUser, onError }) => {
                     <Button value='Add User' type='submit' />
                 </form>
             </Card>
-        </div>
+        </>
     )
 }
 
